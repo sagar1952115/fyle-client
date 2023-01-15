@@ -36,7 +36,11 @@ const Card = ({ name, desc, language, username }) => {
         <div className="card-topic-body">
           {language &&
             topic.map((curr) => {
-              return <div className="card-topics">{curr}</div>;
+              return (
+                <div key={curr.id} className="card-topics">
+                  {curr}
+                </div>
+              );
             })}
         </div>
       </div>
