@@ -6,6 +6,7 @@ const Card = ({ name, desc, language, username }) => {
   const [topic, setTopic] = useState([]);
   useEffect(() => {
     fetchLang();
+    // eslint-disable-next-line
   }, [username]);
   const request = {
     user: username,
