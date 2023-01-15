@@ -1,33 +1,29 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Card.css";
+import { bucket } from "../../utils";
 const Card = ({ name, desc, language, username }) => {
-  console.log(username);
+  // console.log(username);
   const [topic, setTopic] = useState([]);
   useEffect(() => {
-    const request = {
-      user: username,
-      reponame: name,
-    };
-
-    const fetchLang = async () => {
-      const res = await axios
-        .get(
-          `https://github-rest-server.onrender.com/api/github/repoinfo/${username}/${name}`,
-          request
-        )
-        .catch((err) => {
-          console.log(err);
-        });
-      console.log(res);
-
-      const lang = Object.keys(res.data);
-      setTopic(lang);
-      console.log(topic);
-    };
     fetchLang();
-  });
+  }, []);
+  const request = {
+    user: username,
+    reponame: name,
+  };
 
+  const fetchLang = async () => {
+    const res = await axios
+      .get(`${bucket}/api/github/repoinfo/${username}/${name}`, request)
+      .catch((err) => {
+        console.log(err);
+      });
+    // console.log(res);
+
+    const lang = Object.keys(res.data);
+    setTopic(lang);
+  };
   return (
     <>
       <div className="card-body">
@@ -35,9 +31,9 @@ const Card = ({ name, desc, language, username }) => {
         <div className="card-desc">{desc}</div>
         <div className="card-topic-body">
           {language &&
-            topic.map((curr) => {
+            topic.map((curr, i) => {
               return (
-                <div key={curr.id} className="card-topics">
+                <div key={i} className="card-topics">
                   {curr}
                 </div>
               );
