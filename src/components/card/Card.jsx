@@ -3,11 +3,10 @@ import axios from "axios";
 import "./Card.css";
 import { bucket } from "../../utils";
 const Card = ({ name, desc, language, username }) => {
-  // console.log(username);
   const [topic, setTopic] = useState([]);
   useEffect(() => {
     fetchLang();
-  }, []);
+  }, [username]);
   const request = {
     user: username,
     reponame: name,
@@ -19,7 +18,7 @@ const Card = ({ name, desc, language, username }) => {
       .catch((err) => {
         console.log(err);
       });
-    // console.log(res);
+    console.log(res);
 
     const lang = Object.keys(res.data);
     setTopic(lang);
