@@ -1,29 +1,35 @@
-import React from "react";
-import "./HomePage.css";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import axios from "axios";
+import React, { useState } from "react";
+import { ImSpinner2 } from "react-icons/im";
+import { useNavigate } from "react-router-dom";
 import { bucket } from "../../utils";
+import "./HomePage.css";
 
 const HomePage = () => {
   const [username, setUsername] = useState("");
-  // console.log("This is domain " + bucket);
+  const [isLoading, setIsloading] = useState(false);
   const [nameError, setNameError] = useState([]);
   const navigate = useNavigate();
   const handleClick = async (e) => {
     e.preventDefault();
+    if (username === "") {
+      setNameError("Username can not be empty.");
+      return;
+    }
+    setIsloading(true);
     const userdata = {
       user: username,
     };
     const res = await axios
       .get(`${bucket}/api/github/userinfo/${username}`, userdata)
       .catch((err) => {
+        setIsloading(false);
         console.log(err);
       });
-    console.log(res.data.message);
+
     if (res.data.message === "Not Found") {
-      // console.log("Error");
       setNameError("User not found");
+      setIsloading(false);
       return;
     }
     const { name, bio, avatar_url, html_url, blog } = res.data;
@@ -35,6 +41,7 @@ const HomePage = () => {
 
     const arr = repores.data;
     const state = { name, bio, avatar_url, html_url, blog, arr };
+    setIsloading(false);
     navigate("/landing", { state });
   };
   return (
@@ -50,7 +57,12 @@ const HomePage = () => {
         placeholder="Enter your Github Username"
       />
       {nameError !== "" && <div className="nameerr">{nameError}</div>}
-      <button onClick={handleClick}>Submit</button>
+      {!isLoading && <button onClick={handleClick}>Submit</button>}
+      {isLoading && (
+        <button disabled>
+          <ImSpinner2 className="icon-spinner" />
+        </button>
+      )}
     </div>
   );
 };

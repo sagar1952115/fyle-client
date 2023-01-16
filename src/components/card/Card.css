@@ -9,11 +9,14 @@
 }
 .card-heading {
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  color: rgb(0, 183, 255);
   font-size: 2rem;
   font-weight: 600;
   margin: 0.5rem;
   padding: 0.5rem;
+}
+.card-heading a {
+  text-decoration: none;
+  color: rgb(0, 183, 255);
 }
 .card-desc {
   display: flex;
@@ -28,7 +31,8 @@
   display: flex;
 }
 .card-topics {
-  width: max-content;
+  min-width: 3rem;
+  text-align: center;
   color: white;
   height: 1rem;
   margin-left: 1rem;

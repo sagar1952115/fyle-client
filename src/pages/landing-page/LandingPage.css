@@ -21,9 +21,21 @@
   height: 15rem;
 }
 .profile-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15rem;
   margin-left: 3rem;
 }
-a {
+.profile-link .icon {
+  color: rgb(46, 45, 45);
+  margin-right: 5px;
+}
+.profile-link a {
+  color: rgb(46, 45, 45);
+  margin-left: 5px;
+  display: flex;
   text-decoration: none;
   cursor: pointer;
+  justify-content: center;
 }

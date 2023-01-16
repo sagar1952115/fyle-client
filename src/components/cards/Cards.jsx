@@ -1,6 +1,6 @@
 import React from "react";
-import "./Cards.css";
 import Card from "../card/Card";
+import "./Cards.css";
 
 const Cards = ({ arr }) => {
   return (
@@ -14,6 +14,7 @@ const Cards = ({ arr }) => {
               name={curr.name}
               desc={curr.description}
               language={curr.language}
+              repo_url={curr.html_url}
             />
           );
         })}

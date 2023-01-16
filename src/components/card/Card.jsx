@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./Card.css";
+import React, { useEffect, useState } from "react";
 import { bucket } from "../../utils";
-const Card = ({ name, desc, language, username }) => {
+import "./Card.css";
+
+const Card = ({ name, desc, language, username, repo_url }) => {
   const [topic, setTopic] = useState([]);
   useEffect(() => {
     fetchLang();
@@ -19,15 +20,17 @@ const Card = ({ name, desc, language, username }) => {
       .catch((err) => {
         console.log(err);
       });
-    console.log(res);
-
     const lang = Object.keys(res.data);
     setTopic(lang);
   };
   return (
     <>
       <div className="card-body">
-        <div className="card-heading">{name}</div>
+        <div className="card-heading">
+          <a href={repo_url} rel="noreferrer" target="_blank">
+            {name}
+          </a>
+        </div>
         <div className="card-desc">{desc}</div>
         <div className="card-topic-body">
           {language &&

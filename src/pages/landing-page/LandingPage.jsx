@@ -1,11 +1,12 @@
 import React from "react";
-import "./LandingPage.css";
+import { BiLink } from "react-icons/bi";
 import { useLocation } from "react-router-dom";
 import Cards from "../../components/cards/Cards";
+import "./LandingPage.css";
+
 const LandingPage = () => {
   const locate = useLocation();
   const { avatar_url, name, bio, location, blog, html_url, arr } = locate.state;
-  console.log(arr);
   return (
     <div>
       <div className="profile">
@@ -20,7 +21,10 @@ const LandingPage = () => {
         </div>
       </div>
       <div className="profile-link">
-        <a href={html_url}>{html_url}</a>
+        <BiLink className="icons" />
+        <a rel="noreferrer" target="_blank" href={html_url}>
+          {html_url}
+        </a>
       </div>
 
       <Cards arr={arr} />
